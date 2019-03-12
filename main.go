@@ -1,6 +1,10 @@
 package main
 
+import "naichadouban/gorpc/gorpc"
+
 func main() {
-	rpcServer := new(rpcServer)
+	loadConfig()
+	rpcServer := new(gorpc.RpcServer)
 	rpcServer.Start()
+
 }

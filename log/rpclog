@@ -1,0 +1,110 @@
+2019-03-12 11:33:01.275 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:31: rpc server listen :%!(EXTRA *net.TCPAddr=[::]:8009)
+2019-03-12 11:33:27.845 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:31: rpc server listen :[::]:8009
+2019-03-12 18:15:25.444 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:15:49.245 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 44
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version",params:{"num":1}}
+2019-03-12 18:15:49.245 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:93: After Unmarshal the body is :[123 34 105 100 34 58 49 44 34 109 101 116 104 111 100 34 58 34 118 101 114 115 105 111 110 34 44 112 97 114 97 109 115 58 123 34 110 117 109 34 58 49 125 125]
+2019-03-12 18:15:49.246 [ERR] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:283: -32700:Failed to parse request: invalid character 'p' looking for beginning of object key string
+2019-03-12 18:16:12.346 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 46
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":{"num":1}}
+2019-03-12 18:16:12.346 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:93: After Unmarshal the body is :[123 34 105 100 34 58 49 44 34 109 101 116 104 111 100 34 58 34 118 101 114 115 105 111 110 34 44 34 112 97 114 97 109 115 34 58 123 34 110 117 109 34 58 49 125 125]
+2019-03-12 18:16:12.346 [ERR] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:283: -32700:Failed to parse request: json: cannot unmarshal object into Go struct field Request.params of type []json.RawMessage
+2019-03-12 18:17:05.706 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 46
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":{"num":1}}
+2019-03-12 18:17:05.706 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:93: After Unmarshal the body is :[123 34 105 100 34 58 49 44 34 109 101 116 104 111 100 34 58 34 118 101 114 115 105 111 110 34 44 34 112 97 114 97 109 115 34 58 123 34 110 117 109 34 58 49 125 125]
+2019-03-12 18:17:05.706 [ERR] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:283: -32700:Failed to parse request: json: cannot unmarshal object into Go struct field Request.params of type []json.RawMessage
+2019-03-12 18:25:28.629 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:25:55.581 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:27:45.501 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 46
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":{"num":1}}
+2019-03-12 18:32:10.469 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:32:49.650 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 40
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":"{}"
+2019-03-12 18:33:56.994 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:93: After Unmarshal the body is :{"id":1,"method":"version","params":"{}"
+2019-03-12 18:33:56.994 [ERR] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:283: -32700:Failed to parse request: unexpected end of JSON input
+2019-03-12 18:35:03.739 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:35:22.347 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 56
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":"{}","json-rpc":2.0}
+2019-03-12 18:36:20.533 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:36:37.302 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 54
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":[],"json-rpc":2.0}
+2019-03-12 18:38:15.504 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:38:20.957 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 53
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":[],"jsonrpc":2.0}
+2019-03-12 18:39:51.981 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:39:57.690 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 56
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":[],"jsonrpc":"2.0""}
+2019-03-12 18:40:20.961 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:40:29.698 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 55
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":[],"jsonrpc":"2.0"}
+2019-03-12 18:40:36.901 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:93: After Unmarshal the body is :{"id":1,"method":"version","params":[],"jsonrpc":"2.0"}
