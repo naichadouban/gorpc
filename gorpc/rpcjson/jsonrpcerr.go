@@ -3,7 +3,6 @@ package rpcjson
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/btcsuite/btcd/btcjson"
 )
 
 // Request is a type for raw JSON-RPC 1.0 requests.  The Method field identifies
@@ -19,15 +18,7 @@ type Request struct {
 	ID      interface{}       `json:"id"`
 }
 
-// parsedRPCCmd represents a JSON-RPC request object that has been parsed into
-// a known concrete command along with any error that might have happened while
-// parsing it.
-type ParsedRPCCmd struct {
-	Id     interface{}       `json:"id"`
-	Method string            `json:"method"`
-	Cmd    interface{}       `json:"cmd"`
-	Err    *btcjson.RPCError `json:"err"`
-}
+
 
 // RPCErrorCode represents an error code to be used as a part of an RPCError
 // which is in turn used in a JSON-RPC Response object.

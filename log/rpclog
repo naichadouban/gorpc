@@ -108,3 +108,25 @@ User-Agent: Go-http-client/1.1
 
 {"id":1,"method":"version","params":[],"jsonrpc":"2.0"}
 2019-03-12 18:40:36.901 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:93: After Unmarshal the body is :{"id":1,"method":"version","params":[],"jsonrpc":"2.0"}
+2019-03-12 18:44:58.667 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-12 18:45:17.006 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 55
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":[],"jsonrpc":"2.0"}
+2019-03-12 18:45:19.958 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:93: After Unmarshal the body is :{"id":1,"method":"version","params":[],"jsonrpc":"2.0"}
+2019-03-13 14:18:06.816 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:44: rpc server listen :[::]:8009
+2019-03-13 16:18:43.097 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 55
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"version","params":[],"jsonrpc":"2.0"}
+2019-03-13 16:18:43.097 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:93: After Unmarshal the body is :{"id":1,"method":"version","params":[],"jsonrpc":"2.0"}

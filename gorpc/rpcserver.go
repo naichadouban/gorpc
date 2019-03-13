@@ -152,26 +152,22 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
-func parseCmd(request *rpcjson.Request) *rpcjson.ParsedRPCCmd {
-	var parsedCmd rpcjson.ParsedRPCCmd
+// parsedRPCCmd represents a JSON-RPC request object that has been parsed into
+// a known concrete command along with any error that might have happened while
+// parsing it.
+type ParsedRPCCmd struct {
+	Id     interface{}       `json:"id"`
+	Method string            `json:"method"`
+	Cmd    interface{}       `json:"cmd"`
+	Err    *rpcjson.RPCError `json:"err"`
+}
+func parseCmd(request *rpcjson.Request) *ParsedRPCCmd {
+	var parsedCmd ParsedRPCCmd
 	parsedCmd.Id = request.ID
 	parsedCmd.Method = request.Method
 	cmd, err := rpcjson.UnmarshalCmd(request)
 	if err != nil {
-		// When the error is because the method is not registered,
-		// produce a method not found RPC error.
-		if jerr, ok := err.(btcjson.Error); ok &&
-			jerr.ErrorCode == btcjson.ErrUnregisteredMethod {
-
-			parsedCmd.Err = btcjson.ErrRPCMethodNotFound
-			return &parsedCmd
-		}
-
-		// Otherwise, some type of invalid parameters is the
-		// cause, so produce the equivalent RPC error.
-		parsedCmd.Err = btcjson.NewRPCError(
-			btcjson.ErrRPCInvalidParams.Code, err.Error())
-		return &parsedCmd
+		llog.Infof("rpcjson.UnmarshalCmd error:%v",err)
 	}
 	parsedCmd.Cmd = cmd
 	return &parsedCmd
@@ -182,7 +178,7 @@ func parseCmd(request *rpcjson.Request) *rpcjson.ParsedRPCCmd {
 // command and runs the appropriate handler to reply to the command.  Any
 // commands which are not recognized or not implemented will return an error
 // suitable for use in replies.
-func (s *RpcServer) standardCmdResult(cmd *rpcjson.ParsedRPCCmd, closeChan <-chan struct{}) (interface{}, error) {
+func (s *RpcServer) standardCmdResult(cmd *ParsedRPCCmd, closeChan <-chan struct{}) (interface{}, error) {
 	handler, ok := rpcHandlers[cmd.Method]
 	if ok {
 		goto handled

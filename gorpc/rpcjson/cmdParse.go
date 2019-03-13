@@ -5,13 +5,9 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"sync"
 )
 
-var registerLock sync.RWMutex
-var methodToConcreteType = make(map[string]reflect.Type)
-var methodToInfo = make(map[string]methodInfo)
-var concreteTypeToMethod = make(map[reflect.Type]string)
+
 // UnmarshalCmd unmarshals a JSON-RPC request into a suitable concrete command
 // so long as the method type contained within the marshalled request is
 // registered.
