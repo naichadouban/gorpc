@@ -58,6 +58,7 @@ func MustRegisterCmd(method string, cmd interface{}, flags UsageFlag) {
 }
 
 // TODO 这里用反射的目的到底是什么？是要预防什么情况吗？
+// 这个方法会设置map，methodToInfo和methodToConcreteType和concreteTypeToMethod
 func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 	registerLock.Lock()
 	defer registerLock.Unlock()
@@ -107,11 +108,14 @@ func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 				"(field name: %q)", rtf.Name)
 			return makeError(ErrEmbeddedType, str)
 		}
-		// PkgPath 返回指定类型的import package path，
+		// PkgPath 返回指定类型的import package path，如果是在main包中定义的结构体，返回就是main
 		// 也就是说，如果代码中有import encoding/base64这样的语句，
 		// 那么通过PkgPath()就会返回encoding/base64，而不是base64package所在的实际路径。
 		// 反言之，PkgPath()返回的是import package path。
-		if rtf.PkgPath != "" {
+		// 对于Go内置的类型string,error等，或者未定义名称的类型struct{}等，则返回空字符串。
+		// ============= 上面都是对结构体来说的，现在的场景是结构体字段，reflect.StructField 
+		// 对结构体字段，PkgPath是非导出字段的包路径，对导出字段该字段为""
+		if rtf.PkgPath != "" {  // 不是可导出字段
 			str := fmt.Sprintf("unexported fields are not supported "+
 				"(field name: %q)", rtf.Name)
 			return makeError(ErrUnexportedField, str)
@@ -138,11 +142,11 @@ func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 		// Count the optional fields and ensure all fields after the
 		// first optional field are also optional.
 		// 统计可选字段数，确保第一个可选字段之后都是可选的
-	
+
 		if isOptional {
 			numOptFields++
 		} else {
-			if numOptFields > 0 {
+			if numOptFields > 0 {  // 前面已经有可选的字段，你这个尽然还不可以选，不行
 				str := fmt.Sprintf("all fields after the first "+
 					"optional field must also be optional "+
 					"(field name %q)", rtf.Name)
@@ -153,6 +157,7 @@ func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 		// Ensure the default value can be unsmarshalled into the type
 		// and that defaults are only specified for optional fields.
 		if tag := rtf.Tag.Get("jsonrpcdefault"); tag != "" {
+			// 字段不是可选的话，不能有jsonrpcdefault这个tag
 			if !isOptional {
 				str := fmt.Sprintf("required fields must not "+
 					"have a default specified (field name "+
