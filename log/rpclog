@@ -130,3 +130,15 @@ User-Agent: Go-http-client/1.1
 
 {"id":1,"method":"version","params":[],"jsonrpc":"2.0"}
 2019-03-13 16:18:43.097 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/gorpc.go:93: After Unmarshal the body is :{"id":1,"method":"version","params":[],"jsonrpc":"2.0"}
+2019-03-13 16:19:49.369 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/rpcserver.go:44: rpc server listen :[::]:8009
+2019-03-13 16:20:03.478 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/rpcserver.go:54: receive request:post / HTTP/1.1
+Host: localhost:8009
+Connection: close
+Accept-Encoding: gzip
+Content-Length: 56
+Content-Type: application/json
+User-Agent: Go-http-client/1.1
+
+{"id":1,"method":"getblock","params":[],"jsonrpc":"2.0"}
+2019-03-13 16:20:04.503 [DBG] RPC D:/gopath/src/naichadouban/gorpc/gorpc/rpcserver.go:93: After Unmarshal the body is :{"id":1,"method":"getblock","params":[],"jsonrpc":"2.0"}
+2019-03-13 16:20:05.102 [INF] RPC D:/gopath/src/naichadouban/gorpc/gorpc/rpcserver.go:170: rpcjson.UnmarshalCmd error:wrong number of params (expected between 1 and 3, received 0)

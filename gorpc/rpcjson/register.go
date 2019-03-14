@@ -7,9 +7,11 @@ import (
 	"strings"
 	"sync"
 )
+
 // UsageFlag define flags that specify additional properties about the
 // circumstances under which a command can be used.
 type UsageFlag uint32
+
 const (
 	// UFWalletOnly indicates that the command can only be used with an RPC
 	// server that supports wallet commands.
@@ -30,6 +32,7 @@ const (
 	// tested.
 	highestUsageFlagBit
 )
+
 // methodInfo keeps track of information about each registered method such as
 // the parameter information.
 type methodInfo struct {
@@ -40,6 +43,7 @@ type methodInfo struct {
 	flags        UsageFlag
 	usage        string
 }
+
 var registerLock sync.RWMutex
 var methodToConcreteType = make(map[string]reflect.Type)
 var methodToInfo = make(map[string]methodInfo)
@@ -47,34 +51,42 @@ var concreteTypeToMethod = make(map[reflect.Type]string)
 // MustRegisterCmd performs the same function as RegisterCmd except it panics
 // if there is an error.  This should only be called from package init
 // functions.
-func MustRegisterCmd(method string,cmd interface{},flags UsageFlag){
-	if err := RegisterCmd(method,cmd,flags);err != nil {
-		panic(fmt.Sprintf("failed to register type %q:%v\n",method,err))
+func MustRegisterCmd(method string, cmd interface{}, flags UsageFlag) {
+	if err := RegisterCmd(method, cmd, flags); err != nil {
+		panic(fmt.Sprintf("failed to register type %q:%v\n", method, err))
 	}
 }
 
+// TODO 这里用反射的目的到底是什么？是要预防什么情况吗？
 func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 	registerLock.Lock()
 	defer registerLock.Unlock()
-	// 命令是否已经注册
+	// method是否已经注册
 	if _, ok := methodToConcreteType[method]; ok {
 		str := fmt.Sprintf("method %q is already registered", method)
 		return makeError(ErrDuplicateMethod, str)
 	}
 
 	// Ensure that no unrecognized flag bits were specified.
-	if ^(highestUsageFlagBit-1)&flags != 0 {
+	// TODO 下面这个运算还没有看懂
+	if ^(highestUsageFlagBit - 1)&flags != 0 {
 		str := fmt.Sprintf("invalid usage flags specified for method "+
 			"%s: %v", method, flags)
 		return makeError(ErrInvalidUsageFlags, str)
 	}
 
 	rtp := reflect.TypeOf(cmd)
+	// Type和Value都有一个Kind方法可以返回一个常量用于指示一个项到底是
+	// 以什么形式(也就是底层类型underlying type)存储的（what sort of item is stored)
+	// 所以我们注册命令的时候必须传入结构体的指针
 	if rtp.Kind() != reflect.Ptr {
 		str := fmt.Sprintf("type must be *struct not '%s (%s)'", rtp,
 			rtp.Kind())
 		return makeError(ErrInvalidType, str)
 	}
+	// 我们要的不是rtp，而是（从效果上来说）*p。
+	// 为了得到rtp指向的东西，我们调用rtp的Elem()方法。
+	// 这个判断和上面那个判断就是就是结构体指针和结构体，相互对应。
 	rt := rtp.Elem()
 	if rt.Kind() != reflect.Struct {
 		str := fmt.Sprintf("type must be *struct not '%s (*%s)'",
@@ -90,11 +102,15 @@ func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 	defaults := make(map[int]reflect.Value)
 	for i := 0; i < numFields; i++ {
 		rtf := rt.Field(i)
-		if rtf.Anonymous {
+		if rtf.Anonymous { // 匿名字段不支持
 			str := fmt.Sprintf("embedded fields are not supported "+
 				"(field name: %q)", rtf.Name)
 			return makeError(ErrEmbeddedType, str)
 		}
+		// PkgPath 返回指定类型的import package path，
+		// 也就是说，如果代码中有import encoding/base64这样的语句，
+		// 那么通过PkgPath()就会返回encoding/base64，而不是base64package所在的实际路径。
+		// 反言之，PkgPath()返回的是import package path。
 		if rtf.PkgPath != "" {
 			str := fmt.Sprintf("unexported fields are not supported "+
 				"(field name: %q)", rtf.Name)
@@ -103,12 +119,13 @@ func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 
 		// Disallow types that can't be JSON encoded.  Also, determine
 		// if the field is optional based on it being a pointer.
-		var isOptional bool
+		// 决定一个字段是否可选依赖他是否是一个指针
+		var isOptional bool // 是否可选
 		switch kind := rtf.Type.Kind(); kind {
-		case reflect.Ptr:
+		case reflect.Ptr: // 指针
 			isOptional = true
-			kind = rtf.Type.Elem().Kind()  // 指针
-			fallthrough  // 一般是break，不会忘下执行了。fallthrough强制忘下执行
+			kind = rtf.Type.Elem().Kind()
+			fallthrough // 一般是break，不会忘下执行了。fallthrough强制忘下执行
 		default:
 			if !isAcceptableKind(kind) {
 				str := fmt.Sprintf("unsupported field type "+
@@ -120,6 +137,8 @@ func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 
 		// Count the optional fields and ensure all fields after the
 		// first optional field are also optional.
+		// 统计可选字段数，确保第一个可选字段之后都是可选的
+	
 		if isOptional {
 			numOptFields++
 		} else {
@@ -165,6 +184,7 @@ func RegisterCmd(method string, cmd interface{}, flags UsageFlag) error {
 	concreteTypeToMethod[rtp] = method
 	return nil
 }
+
 // baseKindString returns the base kind for a given reflect.Type after
 // indirecting through all pointers.
 func baseKindString(rt reflect.Type) string {
@@ -193,26 +213,8 @@ func isAcceptableKind(kind reflect.Kind) bool {
 	case reflect.Ptr:
 		fallthrough
 	case reflect.Interface:
-		return false
+		return false  // 接口不可以
 	}
 
 	return true
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
