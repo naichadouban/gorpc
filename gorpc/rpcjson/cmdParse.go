@@ -34,7 +34,7 @@ func UnmarshalCmd(r *Request) (interface{}, error) {
 		rvf := rv.Field(i)
 		// Unmarshal参数到结构体字段
 		concreteVal := rvf.Addr().Interface()
-		if err := json.Unmarshal(r.Params[i],&concreteVal);err != nil {
+		if err := json.Unmarshal(r.Params[i],&concreteVal);err != nil { // 参数和命令字段的顺序也应该是一一对应的
 			// The most common error is the wrong type, so
 			// explicitly detect that error and make it nicer.
 			fieldName := strings.ToLower(rt.Field(i).Name)

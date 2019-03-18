@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/naichadouban/mylog/mylog"
 	"github.com/naichadouban/mylog/rotator"
-	"naichadouban/gorpc/gorpc"
 	"os"
 	"path/filepath"
 )
@@ -24,7 +23,7 @@ var (
 	logRotator *rotator.Rotator
 
 	mainLog = backendLog.Logger("MAIN")
-	rpcLog = backendLog.Logger("RPC")
+	//rpcLog = backendLog.Logger("RPC")
 )
 // logWriter 实现了io.Writer，同时向标准输出框和write-end pip(log rotator初始化的)输出。
 // TODO 也许可以用io.MultiWriter(writer1, writer2)实现
@@ -36,12 +35,12 @@ func (logWriter) Write(p []byte) (n int, err error) {
 	return len(p), nil
 }
 func init() {
-	gorpc.UseLogger(rpcLog)
+	//
 }
 
 // subsystemLoggers maps each subsystem identifier to its associated logger.
 var subsystemLoggers = map[string]mylog.Logger{
-	"RPC": rpcLog,
+	//"RPC": rpcLog,
 }
 // initLogRotator initializes the logging rotater to write logs to logFile and
 // create roll files in the same directory.  It must be called before the

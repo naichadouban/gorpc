@@ -24,12 +24,16 @@ type RpcServer struct {
 	statusLock  sync.RWMutex
 	statusLines map[int]string
 }
+func NewRpcServer()(*RpcServer,error){
+	rpc := &RpcServer{
+		statusLines:make(map[int]string),
+	}
+	return rpc,nil
+}
 
 func (rs *RpcServer) Start() {
 	rpcServeMux := http.NewServeMux()
-	httpServer := http.Server{
-		Handler: rpcServeMux,
-	}
+
 	rpcServeMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Connection", "close")
 		w.Header().Set("Connect-Type", "application/json")
@@ -37,11 +41,14 @@ func (rs *RpcServer) Start() {
 		// Read and respond to the request.
 		rs.jsonRPCRead(w, r)
 	})
+	httpServer := http.Server{
+		Handler: rpcServeMux,
+	}
 	listen, err := net.Listen("tcp", ":8009")
 	if err != nil {
 		log.Panicf("net listen error:%v", err)
 	}
-	llog.Infof("rpc server listen :%v", listen.Addr())
+	rlog.Infof("rpc server listen :%v", listen.Addr())
 	httpServer.Serve(listen)
 
 }
@@ -51,7 +58,7 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	llog.Infof("receive request:%v", string(byteReq))
+	rlog.Infof("receive request:%v", string(byteReq))
 	// 读取body信息
 	body, err := ioutil.ReadAll(r.Body)
 	r.Body.Close()
@@ -65,14 +72,14 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 	hj, ok := w.(http.Hijacker)
 	if !ok {
 		errMsg := "webserver does not support hijacking"
-		llog.Error(errMsg)
+		rlog.Error(errMsg)
 		errCode := http.StatusInternalServerError
 		http.Error(w, strconv.Itoa(errCode)+" "+errMsg, errCode)
 		return
 	}
 	conn, buf, err := hj.Hijack()
 	if err != nil {
-		llog.Errorf("Failed to hijack HTTP connection: %v", err)
+		rlog.Errorf("Failed to hijack HTTP connection: %v", err)
 		errCode := http.StatusInternalServerError
 		http.Error(w, strconv.Itoa(errCode)+""+err.Error(), errCode)
 	}
@@ -90,7 +97,7 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 			Message: "Failed to parse request: " + err.Error(),
 		}
 	}
-	llog.Debugf("After Unmarshal the body is :%v", string(body))
+	rlog.Debugf("After Unmarshal get request:%v", request)
 	if jsonErr == nil {
 		// json-rpc 1.0规范：通知必须将字段id设置为null。通知是不需要response的
 		// json-rpc 2.0规范：通知的request必须有`json-rpc`字段，并且没有id字段。
@@ -120,7 +127,7 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 		}()
 		// TODO 检查用户是否有限制
 		if jsonErr == nil {
-			// 把json-rpc请求解析成一个具体的command
+			// 把json-rpc请求request解析成一个具体的command
 			parsedCmd := parseCmd(&request)
 			if parsedCmd.Err != nil {
 				jsonErr = parsedCmd.Err
@@ -132,26 +139,27 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 	// Marshal the response.
 	msg, err := createMarshalledReply(responseID, result, jsonErr)
 	if err != nil {
-		llog.Errorf("Failed to marshal reply: %v", err)
+		rlog.Errorf("Failed to marshal reply: %v", err)
 		return
 	}
 
 	// Write the response.
 	err = rs.writeHTTPResponseHeaders(r, w.Header(), http.StatusOK, buf)
 	if err != nil {
-		llog.Error(err)
+		rlog.Error(err)
 		return
 	}
 	if _, err := buf.Write(msg); err != nil {
-		llog.Errorf("Failed to write marshalled reply: %v", err)
+		rlog.Errorf("Failed to write marshalled reply: %v", err)
 	}
 
 	// Terminate with newline to maintain compatibility with Bitcoin Core.
 	if err := buf.WriteByte('\n'); err != nil {
-		llog.Errorf("Failed to append terminating newline to reply: %v", err)
+		rlog.Errorf("Failed to append terminating newline to reply: %v", err)
 	}
 
 }
+
 // parsedRPCCmd represents a JSON-RPC request object that has been parsed into
 // a known concrete command along with any error that might have happened while
 // parsing it.
@@ -161,13 +169,14 @@ type ParsedRPCCmd struct {
 	Cmd    interface{}       `json:"cmd"`
 	Err    *rpcjson.RPCError `json:"err"`
 }
+
 func parseCmd(request *rpcjson.Request) *ParsedRPCCmd {
 	var parsedCmd ParsedRPCCmd
 	parsedCmd.Id = request.ID
 	parsedCmd.Method = request.Method
 	cmd, err := rpcjson.UnmarshalCmd(request)
 	if err != nil {
-		llog.Infof("rpcjson.UnmarshalCmd error:%v",err)
+		rlog.Infof("rpcjson.UnmarshalCmd error:%v", err)
 	}
 	parsedCmd.Cmd = cmd
 	return &parsedCmd
@@ -276,6 +285,6 @@ func internalRPCError(errStr, context string) *btcjson.RPCError {
 	if context != "" {
 		logStr = context + ": " + errStr
 	}
-	llog.Error(logStr)
+	rlog.Error(logStr)
 	return btcjson.NewRPCError(btcjson.ErrRPCInternal.Code, errStr)
 }

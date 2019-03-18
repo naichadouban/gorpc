@@ -1,23 +1,35 @@
 package gorpc
 
+import (
+	"math/rand"
+	"time"
+)
+
+// getReadMe指令，此指令不需要注册
+type GetReadMeCmd struct{}
+
+// getReadMe指令的返回值
+type GetReadMeReasult struct {
+	Info string `json:"info"`
+}
+
+// 需要chan，处理完成后通知断开Hijack()之后的链接
 type commandHandler func(*RpcServer, interface{}, <-chan struct{}) (interface{}, error)
 
-// rpcHandlers maps RPC command strings to appropriate handler functions.
-// This is set by init because help references rpcHandlers and thus causes
-// a dependency loop.
-var rpcHandlers map[string]commandHandler
-var rpcHandlersBeforeInit = map[string]commandHandler{
-	"addnode":               handleAddNode,
+var rpcHandlers = map[string]commandHandler{
+	"getreadme": handleGetReadMe,
+}
+func AddRpcHandler(method string,handler commandHandler){
+	rpcHandlers[method]=handler
+}
 
-	"version":               handleVersion,
+func handleGetReadMe(s *RpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
+	rlog.Debugf("getReadMe was called:%v", cmd)
+	readme := GetReadMeReasult{
+		Info:"這是我自己仿照btcd實現的json-rpc，readme只是一個測試方法",
+	}
+	return readme, nil
 }
-// handleAddNode handles addnode commands.
-func handleAddNode(s *RpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
-	llog.Infof("handleAddNode was called")
-	return nil,nil
-}
-// handleAddNode handles addnode commands.
-func handleVersion(s *RpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
-	llog.Infof("handleVersion was called")
-	return nil,nil
+func init() {
+	rand.Seed(time.Now().UnixNano())
 }
