@@ -1,8 +1,7 @@
 package main
 
 import (
-	"naichadouban/gorpc/gorpc"
-	"naichadouban/gorpc/gorpc/rpcjson"
+	"naichadouban/gorpc/httprpc"
 )
 
 // 结构体的字段排列是有要求的，第一个可选字段之后的字段都必须是可选的。
@@ -20,7 +19,7 @@ type GetBlockResult struct {
 	Height int    `json:"height"`
 }
 // handleGetBlock implements the getblock command.
-func handleGetBlock(s *gorpc.RpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
+func handleGetBlock(s *httprpc.RpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
 	getBlockReply := GetBlockResult{
 		Hash:   "fasdfsadfsdfasdf1654654654fasdf",
 		Height: 10010,
@@ -30,9 +29,9 @@ func handleGetBlock(s *gorpc.RpcServer, cmd interface{}, closeChan <-chan struct
 }
 
 func init() {
-	flags := rpcjson.UsageFlag(0) //
+	flags := httprpc.UsageFlag(0) //
 	// (*GetBlockCmd)(nil) 相当于*GetBlockCmd类型的指针的初始化
 	// note:这里是*GetBlockCmd
-	rpcjson.MustRegisterCmd("getblock", (*GetBlockCmd)(nil), flags)
-	gorpc.AddRpcHandler("getblock",handleGetBlock)
+	httprpc.MustRegisterCmd("getblock", (*GetBlockCmd)(nil), flags)
+	httprpc.AddRpcHandler("getblock",handleGetBlock)
 }

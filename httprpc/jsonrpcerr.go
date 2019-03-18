@@ -1,12 +1,8 @@
-package rpcjson
+package httprpc
 
 import (
 	"fmt"
 )
-
-
-
-
 
 // RPCErrorCode represents an error code to be used as a part of an RPCError
 // which is in turn used in a JSON-RPC Response object.

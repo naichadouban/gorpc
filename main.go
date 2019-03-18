@@ -1,12 +1,12 @@
 package main
 
-import "naichadouban/gorpc/gorpc"
+import "naichadouban/gorpc/httprpc"
 
 func main() {
 	loadConfig()
-	rpcServer,err  := gorpc.NewRpcServer()
+	rpcServer, err := httprpc.NewRpcServer()
 	if err != nil {
-		mainLog.Errorf("new rpcserver error:%v",err)
+		mainLog.Errorf("new rpcserver error:%v", err)
 	}
 	rpcServer.Start()
 

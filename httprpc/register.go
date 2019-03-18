@@ -1,4 +1,4 @@
-package rpcjson
+package httprpc
 
 import (
 	"encoding/json"

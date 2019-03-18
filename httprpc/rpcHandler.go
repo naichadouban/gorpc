@@ -1,4 +1,4 @@
-package gorpc
+package httprpc
 
 import (
 	"math/rand"
@@ -19,14 +19,15 @@ type commandHandler func(*RpcServer, interface{}, <-chan struct{}) (interface{},
 var rpcHandlers = map[string]commandHandler{
 	"getreadme": handleGetReadMe,
 }
-func AddRpcHandler(method string,handler commandHandler){
-	rpcHandlers[method]=handler
+
+func AddRpcHandler(method string, handler commandHandler) {
+	rpcHandlers[method] = handler
 }
 
 func handleGetReadMe(s *RpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
 	rlog.Debugf("getReadMe was called:%v", cmd)
 	readme := GetReadMeReasult{
-		Info:"這是我自己仿照btcd實現的json-rpc，readme只是一個測試方法",
+		Info: "這是我自己仿照btcd實現的json-rpc，readme只是一個測試方法",
 	}
 	return readme, nil
 }

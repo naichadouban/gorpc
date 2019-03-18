@@ -1,4 +1,4 @@
-package gorpc
+package httprpc
 
 import (
 	"encoding/json"
@@ -7,7 +7,6 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
-	"naichadouban/gorpc/gorpc/rpcjson"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -24,11 +23,12 @@ type RpcServer struct {
 	statusLock  sync.RWMutex
 	statusLines map[int]string
 }
-func NewRpcServer()(*RpcServer,error){
+
+func NewRpcServer() (*RpcServer, error) {
 	rpc := &RpcServer{
-		statusLines:make(map[int]string),
+		statusLines: make(map[int]string),
 	}
-	return rpc,nil
+	return rpc, nil
 }
 
 func (rs *RpcServer) Start() {
@@ -90,10 +90,10 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 	var responseID interface{}
 	var jsonErr error
 	var result interface{} // 处理后的结果
-	var request rpcjson.Request
+	var request Request
 	if err := json.Unmarshal(body, &request); err != nil {
-		jsonErr = rpcjson.RPCError{
-			Code:    rpcjson.ErrRPCParse.Code,
+		jsonErr = RPCError{
+			Code:    ErrRPCParse.Code,
 			Message: "Failed to parse request: " + err.Error(),
 		}
 	}
@@ -164,17 +164,17 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 // a known concrete command along with any error that might have happened while
 // parsing it.
 type ParsedRPCCmd struct {
-	Id     interface{}       `json:"id"`
-	Method string            `json:"method"`
-	Cmd    interface{}       `json:"cmd"`
-	Err    *rpcjson.RPCError `json:"err"`
+	Id     interface{} `json:"id"`
+	Method string      `json:"method"`
+	Cmd    interface{} `json:"cmd"`
+	Err    *RPCError   `json:"err"`
 }
 
-func parseCmd(request *rpcjson.Request) *ParsedRPCCmd {
+func parseCmd(request *Request) *ParsedRPCCmd {
 	var parsedCmd ParsedRPCCmd
 	parsedCmd.Id = request.ID
 	parsedCmd.Method = request.Method
-	cmd, err := rpcjson.UnmarshalCmd(request)
+	cmd, err := UnmarshalCmd(request)
 	if err != nil {
 		rlog.Infof("rpcjson.UnmarshalCmd error:%v", err)
 	}

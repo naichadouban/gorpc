@@ -2,19 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4c2cec0-50e3-4492-9f34-bc87bbaca166" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/gorpc/rpcjson/log.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gorpc/rpcjson/request.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gorpc/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/gorpc/log.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gorpc/rpcHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/gorpc/rpcHandler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/cmdParse.go" beforeDir="false" afterPath="$PROJECT_DIR$/gorpc/rpcjson/cmdParse.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/commands.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/jsonrpcerr.go" beforeDir="false" afterPath="$PROJECT_DIR$/gorpc/rpcjson/jsonrpcerr.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gorpc/rpcserver.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/log.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/rpclog" beforeDir="false" afterPath="$PROJECT_DIR$/log/rpclog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/gorpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/httprpc/gorpc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/httprpc/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/rpcHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/httprpc/rpcHandler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/cmdParse.go" beforeDir="false" afterPath="$PROJECT_DIR$/httprpc/cmdParse.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/httprpc/error.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/jsonrpcerr.go" beforeDir="false" afterPath="$PROJECT_DIR$/httprpc/jsonrpcerr.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/log.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/httprpc/register.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/register_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/httprpc/register_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gorpc/rpcjson/request.go" beforeDir="false" afterPath="$PROJECT_DIR$/httprpc/request.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpcserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/rpcserver.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,27 +35,27 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="go" value="108" />
-          <entry key="log" value="1" />
-          <entry key="rpclog" value="2" />
+          <entry key="go" value="122" />
+          <entry key="log" value="2" />
+          <entry key="rpclog" value="5" />
           <entry key="s" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Go" value="108" />
-          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="Go" value="122" />
+          <entry key="PLAIN_TEXT" value="7" />
           <entry key="x86 Plan9 Assembly" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="6708" />
+          <entry key="go" value="6737" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="6708" />
+          <entry key="Go" value="6737" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
@@ -67,58 +68,49 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/cmdParse.go">
+        <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1589">
-              <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="34" />
+            <state relative-caret-position="132">
+              <caret line="6" column="38" lean-forward="true" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/httprpc/gorpc.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="367">
+              <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
               <folding>
-                <element signature="e#17#73#0" expanded="true" />
+                <element signature="e#17#210#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/error.go">
+        <entry file="file://$PROJECT_DIR$/httprpc/error.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1470">
+            <state relative-caret-position="22">
               <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/register.go">
+        <entry file="file://$PROJECT_DIR$/httprpc/cmdParse.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="53" column="20" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="20" />
+            <state relative-caret-position="374">
+              <caret line="40" column="20" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/request.go">
+        <entry file="file://$PROJECT_DIR$/httprpc/log.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="13" column="11" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gorpc/log.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-540">
-              <caret line="25" column="8" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/gorpc/rpcHandler.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+            <state relative-caret-position="443">
+              <caret line="88" column="36" lean-forward="true" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -126,20 +118,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rpcserver.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-              <folding>
-                <element signature="e#14#99#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/log.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-838">
-              <caret line="43" column="1" lean-forward="true" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
+            <state relative-caret-position="638">
+              <caret line="31" column="4" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -188,11 +168,13 @@
         <option value="$PROJECT_DIR$/gorpc/rpcserver.go" />
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/gorpc/rpcjson/log.go" />
-        <option value="$PROJECT_DIR$/gorpc/log.go" />
         <option value="$PROJECT_DIR$/gorpc/gorpc.go" />
-        <option value="$PROJECT_DIR$/rpcserver.go" />
         <option value="$PROJECT_DIR$/log.go" />
         <option value="$PROJECT_DIR$/gorpc/rpcHandler.go" />
+        <option value="$PROJECT_DIR$/gorpc/log.go" />
+        <option value="$PROJECT_DIR$/rpcserver.go" />
+        <option value="$PROJECT_DIR$/httprpc/log.go" />
+        <option value="$PROJECT_DIR$/httprpc/gorpc.go" />
       </list>
     </option>
   </component>
@@ -208,7 +190,7 @@
     <option name="width" value="1467" />
     <option name="height" value="916" />
   </component>
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
@@ -221,11 +203,6 @@
           <expand>
             <path>
               <item name="gorpc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gorpc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gorpc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gorpc" type="462c0819:PsiDirectoryNode" />
               <item name="gorpc" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -245,6 +222,9 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\gopath\src\naichadouban\gorpc\gorpc" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\gopath\src\naichadouban\gorpc\gorpc\rpcjson" />
     </key>
@@ -365,15 +345,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="5" y="5" width="1500" height="824" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14605543" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25658807" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32790446" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.35179153" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32706222" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.35179153" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.34961998" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -453,13 +433,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gorpc/jsonrpc.go" />
     <entry file="file://$PROJECT_DIR$/gorpc/jsonutil.go" />
-    <entry file="file://$PROJECT_DIR$/log/rpclog">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-747">
-          <caret line="2" column="68" selection-start-line="2" selection-start-column="68" selection-end-line="2" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../github.com/btcsuite/btcd/btcjson/jsonrpc.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -474,13 +447,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rpc_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/rpc_test.go" />
     <entry file="file://C:/Go/src/reflect/value.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -544,83 +511,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcserver.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="33" column="27" lean-forward="true" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/register_test.go">
+    <entry file="file://$PROJECT_DIR$/gorpc/rpcserver.go" />
+    <entry file="file://$PROJECT_DIR$/httprpc/register_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2181">
           <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/commands.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/error.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1470">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/log.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-540">
-          <caret line="25" column="8" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/request.go">
+    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/commands.go" />
+    <entry file="file://$PROJECT_DIR$/httprpc/request.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="13" column="11" lean-forward="true" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/log.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/jsonrpcerr.go">
+    <entry file="file://$PROJECT_DIR$/httprpc/jsonrpcerr.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-269">
           <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/gorpc.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1410">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/cmdParse.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1589">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="34" />
-          <folding>
-            <element signature="e#17#73#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -631,34 +541,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/register.go">
+    <entry file="file://$PROJECT_DIR$/httprpc/rpcHandler.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="53" column="20" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rpcserver.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="e#14#99#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="157">
+          <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gorpc.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
+        <state relative-caret-position="330">
           <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gorpc/rpcHandler.go">
+    <entry file="file://$PROJECT_DIR$/log/rpclog">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+        <state relative-caret-position="-836">
+          <caret line="2" column="68" selection-start-line="2" selection-start-column="68" selection-end-line="2" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gorpc/rpcjson/log.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/httprpc/register.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1469">
+          <caret line="53" column="20" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/httprpc/error.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/httprpc/log.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="88" column="36" lean-forward="true" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/httprpc/cmdParse.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="40" column="20" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpcserver.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="31" column="4" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="38" lean-forward="true" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/httprpc/gorpc.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+          <folding>
+            <element signature="e#17#210#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,4 +1,4 @@
-package rpcjson
+package httprpc
 
 import (
 	"encoding/json"
@@ -6,7 +6,6 @@ import (
 	"reflect"
 	"strings"
 )
-
 
 // UnmarshalCmd unmarshals a JSON-RPC request into a suitable concrete command
 // so long as the method type contained within the marshalled request is
@@ -34,7 +33,7 @@ func UnmarshalCmd(r *Request) (interface{}, error) {
 		rvf := rv.Field(i)
 		// Unmarshal参数到结构体字段
 		concreteVal := rvf.Addr().Interface()
-		if err := json.Unmarshal(r.Params[i],&concreteVal);err != nil { // 参数和命令字段的顺序也应该是一一对应的
+		if err := json.Unmarshal(r.Params[i], &concreteVal); err != nil { // 参数和命令字段的顺序也应该是一一对应的
 			// The most common error is the wrong type, so
 			// explicitly detect that error and make it nicer.
 			fieldName := strings.ToLower(rt.Field(i).Name)
@@ -60,6 +59,7 @@ func UnmarshalCmd(r *Request) (interface{}, error) {
 
 	return rvp.Interface(), nil
 }
+
 // populateDefaults populates default values into any remaining optional struct
 // fields that did not have parameters explicitly provided.  The caller should
 // have previously checked that the number of parameters being passed is at

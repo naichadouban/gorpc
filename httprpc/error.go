@@ -1,4 +1,5 @@
-package rpcjson
+package httprpc
+
 import (
 	"fmt"
 )

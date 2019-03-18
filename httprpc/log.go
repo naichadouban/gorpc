@@ -1,10 +1,9 @@
-package gorpc
+package httprpc
 
 import (
 	"fmt"
 	"github.com/naichadouban/mylog/mylog"
 	"github.com/naichadouban/mylog/rotator"
-	"naichadouban/gorpc/gorpc/rpcjson"
 	"os"
 	"path/filepath"
 )
@@ -23,12 +22,11 @@ var (
 	// application shutdown.
 	logRotator *rotator.Rotator
 
-	rlog       = backendLog.Logger("RPC")
-	rpcjsonLog = backendLog.Logger("RPCJSON")
+	rlog = backendLog.Logger("HTTPRPC")
 )
 // subsystemLoggers maps each subsystem identifier to its associated logger.
 var subsystemLoggers = map[string]mylog.Logger{
-	"RPCJSON": rpcjsonLog,
+	"HTTPRPC": rlog,
 }
 
 // logWriter 实现了io.Writer，同时向标准输出框和write-end pip(log rotator初始化的)输出。
@@ -40,8 +38,6 @@ func (logWriter) Write(p []byte) (n int, err error) {
 	logRotator.Write(p)
 	return len(p), nil
 }
-
-
 
 // initLogRotator initializes the logging rotater to write logs to logFile and
 // create roll files in the same directory.  It must be called before the
@@ -88,7 +84,6 @@ func setLogLevels(logLevel string) {
 }
 
 func init() {
-	rpcjson.UseLogger(rpcjsonLog)
-	initLogRotator("./gorpc.log") //默认输出文件在项目跟目录
-	setLogLevels("debug")         //默认日志等级是debug
+	initLogRotator("./httprpc.log") //默认输出文件在项目根目录
+	setLogLevels("debug")           //默认日志等级是debug
 }
