@@ -1,4 +1,4 @@
-package main
+package gorpc
 
 import "path/filepath"
 var logDir = filepath.Join("./","log")

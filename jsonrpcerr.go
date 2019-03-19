@@ -1,4 +1,4 @@
-package httprpc
+package gorpc
 
 import (
 	"fmt"

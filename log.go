@@ -1,4 +1,4 @@
-package main
+package gorpc
 
 import (
 	"fmt"
@@ -22,8 +22,8 @@ var (
 	// application shutdown.
 	logRotator *rotator.Rotator
 
-	mainLog = backendLog.Logger("MAIN")
-	//rpcLog = backendLog.Logger("RPC")
+	rlog = backendLog.Logger("GORPC")
+	//httpLog = backendLog.Logger("GOHTTPRPC")
 )
 // logWriter 实现了io.Writer，同时向标准输出框和write-end pip(log rotator初始化的)输出。
 // TODO 也许可以用io.MultiWriter(writer1, writer2)实现
@@ -34,13 +34,11 @@ func (logWriter) Write(p []byte) (n int, err error) {
 	logRotator.Write(p)
 	return len(p), nil
 }
-func init() {
-	//
-}
+
 
 // subsystemLoggers maps each subsystem identifier to its associated logger.
 var subsystemLoggers = map[string]mylog.Logger{
-	//"RPC": rpcLog,
+	"GORPC": rlog,
 }
 // initLogRotator initializes the logging rotater to write logs to logFile and
 // create roll files in the same directory.  It must be called before the
@@ -84,4 +82,8 @@ func setLogLevels(logLevel string) {
 	for subsystemID := range subsystemLoggers {
 		setLogLevel(subsystemID, logLevel)
 	}
+}
+func init() {
+	initLogRotator("./log/rpc.log") //默认输出文件在项目根目录下log文件夹
+	setLogLevels("debug")           //默认日志等级是debug
 }

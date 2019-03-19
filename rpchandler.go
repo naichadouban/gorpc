@@ -1,8 +1,7 @@
-package httprpc
-
+package gorpc
 import (
-	"math/rand"
-	"time"
+"math/rand"
+"time"
 )
 
 // getReadMe指令，此指令不需要注册
@@ -27,10 +26,13 @@ func AddRpcHandler(method string, handler commandHandler) {
 func handleGetReadMe(s *RpcServer, cmd interface{}, closeChan <-chan struct{}) (interface{}, error) {
 	rlog.Debugf("getReadMe was called:%v", cmd)
 	readme := GetReadMeReasult{
-		Info: "這是我自己仿照btcd實現的json-rpc，readme只是一個測試方法",
+		"这是从hcd中抽取出来的一个json-rpc，通过http、websocket传输",
 	}
 	return readme, nil
 }
 func init() {
 	rand.Seed(time.Now().UnixNano())
+	flags := UsageFlag(0) //
+	// (*GetReadMeCmd)(nil) 相当于*GetReadMeCmd类型的指针的初始化
+	MustRegisterCmd("getreadme", (*GetReadMeCmd)(nil), flags)
 }

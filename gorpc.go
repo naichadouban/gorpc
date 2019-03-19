@@ -1,4 +1,4 @@
-package httprpc
+package gorpc
 
 import (
 	"encoding/json"
@@ -14,23 +14,23 @@ import (
 	"sync"
 )
 
-type RpcConfig struct {
+type RpcServerConfig struct {
 	RPCQuirks bool
 }
 type RpcServer struct {
 	started     int32
-	config      RpcConfig
+	Config      *RpcServerConfig
 	statusLock  sync.RWMutex
 	statusLines map[int]string
 }
 
-func NewRpcServer() (*RpcServer, error) {
-	rpc := &RpcServer{
+func NewRpcServer(config *RpcServerConfig) (*RpcServer, error) {
+	rs := &RpcServer{
+		Config:      config,
 		statusLines: make(map[int]string),
 	}
-	return rpc, nil
+	return rs, nil
 }
-
 func (rs *RpcServer) Start() {
 	rpcServeMux := http.NewServeMux()
 
@@ -112,7 +112,7 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 		// 	RPCQuirks            bool          `long:"rpcquirks" description:"Mirror some JSON-RPC quirks of Bitcoin Core -- NOTE: Discouraged unless interoperability issues need to be worked around"`
 		// 如果RPC quirks允许，这样的请求也会回应，如果请求没有指定json-rpc版本
 
-		if request.ID == nil && (rs.config.RPCQuirks && request.Jsonrpc == "") {
+		if request.ID == nil && (rs.Config.RPCQuirks && request.Jsonrpc == "") {
 			return
 		}
 		// 到这里解析至少是成功的，设置response的ID
@@ -157,7 +157,6 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 	if err := buf.WriteByte('\n'); err != nil {
 		rlog.Errorf("Failed to append terminating newline to reply: %v", err)
 	}
-
 }
 
 // parsedRPCCmd represents a JSON-RPC request object that has been parsed into
@@ -287,4 +286,9 @@ func internalRPCError(errStr, context string) *btcjson.RPCError {
 	}
 	rlog.Error(logStr)
 	return btcjson.NewRPCError(btcjson.ErrRPCInternal.Code, errStr)
+}
+
+
+func init() {
+
 }

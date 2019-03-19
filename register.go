@@ -1,4 +1,4 @@
-package httprpc
+package gorpc
 
 import (
 	"encoding/json"
@@ -48,6 +48,12 @@ var registerLock sync.RWMutex
 var methodToConcreteType = make(map[string]reflect.Type)
 var methodToInfo = make(map[string]methodInfo)
 var concreteTypeToMethod = make(map[reflect.Type]string)
+// 提供给外部注册的方法
+func Register(method string, cmd interface{},handler commandHandler,flags UsageFlag){
+	AddRpcHandler(method,handler)
+	MustRegisterCmd(method,cmd,flags)
+}
+
 // MustRegisterCmd performs the same function as RegisterCmd except it panics
 // if there is an error.  This should only be called from package init
 // functions.
@@ -223,3 +229,4 @@ func isAcceptableKind(kind reflect.Kind) bool {
 
 	return true
 }
+
