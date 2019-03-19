@@ -1,7 +1,8 @@
 package gorpc
+
 import (
-"math/rand"
-"time"
+	"math/rand"
+	"time"
 )
 
 // getReadMe指令，此指令不需要注册
@@ -20,6 +21,10 @@ var rpcHandlers = map[string]commandHandler{
 }
 
 func AddRpcHandler(method string, handler commandHandler) {
+	if _,ok := rpcHandlers[method];ok{
+		rlog.Errorf("http rpc method %q is already registered", method)
+		return
+	}
 	rpcHandlers[method] = handler
 }
 
@@ -30,6 +35,32 @@ func handleGetReadMe(s *RpcServer, cmd interface{}, closeChan <-chan struct{}) (
 	}
 	return readme, nil
 }
+//====================上面是over http=========下面是over websocket===================
+// wsCommandHandler describes a callback function used to handle a specific
+// command.
+type wsCommandHandler func(*wsClient, interface{}) (interface{}, error)
+
+// wsHandlers maps RPC command strings to appropriate websocket handler
+// functions.  This is set by init because help references wsHandlers and thus
+// causes a dependency loop.
+
+var wsHandlers = map[string]wsCommandHandler{
+	"help":                      handleWebsocketHelp,
+}
+// handleWebsocketHelp implements the help command for websocket connections.
+func handleWebsocketHelp(wsc *wsClient, icmd interface{}) (interface{}, error) {
+	help:="json-rpc通过websocket，这相当于是个example"
+	return help, nil
+}
+func AddWsRpcHandler(method string,wsHandler wsCommandHandler){
+	// method是否已经注册
+	if _, ok := wsHandlers[method]; ok {
+		rlog.Errorf("websocket method %q is already registered", method)
+		return
+	}
+	wsHandlers[method]=wsHandler
+}
+//==========================websocket 结束 ============================
 func init() {
 	rand.Seed(time.Now().UnixNano())
 	flags := UsageFlag(0) //

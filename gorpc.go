@@ -23,6 +23,7 @@ type RpcServer struct {
 	Config      *RpcServerConfig
 	statusLock  sync.RWMutex
 	statusLines map[int]string
+	ntfnMgr     *wsNotificationManager
 }
 
 func NewRpcServer(config *RpcServerConfig) (*RpcServer, error) {
@@ -32,7 +33,9 @@ func NewRpcServer(config *RpcServerConfig) (*RpcServer, error) {
 	}
 	return rs, nil
 }
+
 var upgrader = websocket.Upgrader{}
+
 func (rs *RpcServer) Start() {
 	rpcServeMux := http.NewServeMux()
 
@@ -61,7 +64,7 @@ func (rs *RpcServer) jsonRPCRead(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	rlog.Infof("receive request:%v", string(byteReq))
+	rlog.Tracef("receive request:%v", string(byteReq))
 	// 读取body信息
 	body, err := ioutil.ReadAll(r.Body)
 	r.Body.Close()
@@ -290,7 +293,6 @@ func internalRPCError(errStr, context string) *btcjson.RPCError {
 	rlog.Error(logStr)
 	return btcjson.NewRPCError(btcjson.ErrRPCInternal.Code, errStr)
 }
-
 
 func init() {
 
