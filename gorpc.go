@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/btcsuite/btcd/btcjson"
+	"github.com/gorilla/websocket"
 	"io"
 	"io/ioutil"
 	"log"
@@ -31,6 +32,7 @@ func NewRpcServer(config *RpcServerConfig) (*RpcServer, error) {
 	}
 	return rs, nil
 }
+var upgrader = websocket.Upgrader{}
 func (rs *RpcServer) Start() {
 	rpcServeMux := http.NewServeMux()
 
@@ -41,6 +43,7 @@ func (rs *RpcServer) Start() {
 		// Read and respond to the request.
 		rs.jsonRPCRead(w, r)
 	})
+
 	httpServer := http.Server{
 		Handler: rpcServeMux,
 	}
